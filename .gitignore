@@ -1,6 +1,0 @@
-*.backup
-*.before-fix
-*.safety-backup
-*.gguf
-.env
-.env.*

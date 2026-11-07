@@ -1,0 +1,12 @@
+[submodule "skycut-workspace/sources/openscene"]
+	path = skycut-workspace/sources/openscene
+	url = https://github.com/Theorvane/OpenScene.git
+[submodule "skycut-workspace/sources/librecuts"]
+	path = skycut-workspace/sources/librecuts
+	url = https://github.com/tharunbirla/LibreCuts.git
+[submodule "skycut-workspace/sources/freecut"]
+	path = skycut-workspace/sources/freecut
+	url = https://github.com/walterlow/freecut.git
+[submodule "skycut-workspace/sources/opencut"]
+	path = skycut-workspace/sources/opencut
+	url = https://github.com/OpenCut-app/OpenCut.git
