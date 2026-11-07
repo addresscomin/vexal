@@ -1,26 +1,38 @@
 # VYRO — Mobile Video Editor
 
-VYRO is an original Android-first video editor project. It is developed independently and does not copy CapCut source code, branding, proprietary effects, or assets.
+VYRO is an original Android-first video editor project. It is developed independently and does not copy CapCut or After Effects source code, branding, proprietary effects, templates, or assets.
 
-## Current foundation
-- Premium dark editor shell with custom bottom navigation and icon treatment
-- Home / project hub, editor workspace, effects library and Pro screen
-- Android document picker for importing video
-- Timeline workspace foundation and feature architecture notes
-- Native Kotlin + Jetpack Compose project
+## Current Android foundation
+- Premium dark visual system, custom bottom navigation and icon treatment
+- Home / project hub, Studio workspace, Effects library and Pro screen
+- Android document picker for video import
+- Media3 ExoPlayer video preview in the Studio screen
+- Non-destructive clip / track / transform project models
+- Timeline split, trim-start, trim-end, speed and volume model operations
+- First Media3 Transformer export path for a single trimmed / rotated clip
+- GitHub Actions workflow configured to build a debug APK
+
+## Open the project
+Open `vyro-android/` in Android Studio with JDK 17 and Android SDK 35. The CI workflow uses Gradle 8.9.
 
 ## Build
-Open this folder in Android Studio (or open the repository and select this folder), install Android SDK 35, then run:
 ```bash
-./gradlew assembleDebug
+gradle -p vyro-android assembleDebug
 ```
 
-## Planned editing engine
-The UI foundation is not yet a production rendering engine. The roadmap separates features that need native media processing, ML models, cloud services, licensing, or device-specific testing. See `docs/ROADMAP.md`.
+The expected debug APK output is:
+`vyro-android/app/build/outputs/apk/debug/app-debug.apk`
 
-## Integrations
-- Supabase: planned for optional account, cloud project sync, licensed asset catalog and entitlements. No project keys are committed.
-- Google Play Billing: planned for eligible Play distribution. Purchases must be verified server-side.
-- Vercel: optional web landing page / admin console; not required by the Android editor.
+## Feature plans
+See:
+- `docs/FEATURE-MATRIX.md` — broad mobile editor and motion-graphics feature specification
+- `docs/ROADMAP.md` — implementation milestones and status
+- `app/src/main/java/studio/zahd/vyro/editor/` — timeline model and Media3 export foundation
 
-Never commit API keys, signing keys, service-role secrets, or private credentials.
+## Cloud setup
+A Supabase schema draft is in `supabase/migrations/`. It has not been applied to a live project. Cloud sync, storage buckets, authentication and server-verified subscriptions need a separately authorized Supabase project and deployment configuration.
+
+## Honest implementation status
+This is an active foundation build, not yet a complete production editor. Multi-track compositing, full timeline UI, audio mixing, chroma key, masks, keyframe rendering, background removal, motion/camera tracking, captions and full export UI still require implementation and device testing. The feature matrix does not imply those tools are already operational.
+
+Never commit API keys, service-role secrets, billing credentials, signing keys, or private user media.
