@@ -11,7 +11,7 @@ export interface Clip {
   id: string; assetId: string; startFrame: number; sourceInFrame: number; durationFrames: number;
   playbackRate: number; volume: number; muted: boolean; opacity: number; blendMode: BlendMode;
   transform: { position: Vec2; scale: Vec2; rotation: number; anchor: Vec2 };
-  keyframes: Record<string, readonly Keyframe[]>;
+  keyframes: Record<string, readonly Keyframe[]>;\n  effects?: Record<string, number>; mask?: "none" | "circle" | "oval" | "rounded" | "left" | "right";
 }
 export interface Track { id: string; name: string; kind: TrackKind; muted: boolean; locked: boolean; visible: boolean; clips: readonly Clip[]; }
 export interface EditorProject { id: string; name: string; fps: number; width: number; height: number; assets: readonly Asset[]; tracks: readonly Track[]; }
