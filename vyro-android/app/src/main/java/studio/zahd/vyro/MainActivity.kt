@@ -310,9 +310,11 @@ private fun VideoCanvas(clip: EditClip) {
         player.volume = clip.volume
     }
     DisposableEffect(player) { onDispose { player.release() } }
-    AndroidView(Modifier.fillMaxSize(), factory = { ctx ->
-        PlayerView(ctx).apply { this.player = player; useController = true }
-    }, update = { it.player = player })
+    AndroidView(
+        modifier = Modifier.fillMaxSize(),
+        factory = { ctx -> PlayerView(ctx).apply { this.player = player; useController = true } },
+        update = { view -> view.player = player }
+    )
 }
 
 @Composable
