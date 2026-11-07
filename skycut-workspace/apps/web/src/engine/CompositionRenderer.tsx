@@ -1,10 +1,11 @@
 import React,{useEffect,useRef} from "react";
 import {evaluateKeyframes,type EditorProject,type BlendMode} from "../store/editorStore";
-interface Props {project:EditorProject;urls:Record<string,string>;frame:number;playing:boolean;}
+interface Props {project:EditorProject;urls:Record<string,string>;frame:number;playing:boolean;canvasRef?:React.RefObject<HTMLCanvasElement|null>;}
 const compositeMode:Record<BlendMode,GlobalCompositeOperation>={normal:"source-over",multiply:"multiply",screen:"screen",overlay:"overlay",darken:"darken",lighten:"lighten",difference:"difference"};
 const clamp=(n:number,min:number,max:number)=>Math.min(max,Math.max(min,n));
-export function CompositionRenderer({project,urls,frame,playing}:Props){
- const canvasRef=useRef<HTMLCanvasElement>(null);
+export function CompositionRenderer({project,urls,frame,playing,canvasRef:externalCanvasRef}:Props){
+ const internalCanvasRef=useRef<HTMLCanvasElement>(null);
+ const canvasRef=externalCanvasRef??internalCanvasRef;
  const latest=useRef({project,urls,frame,playing});
  useEffect(()=>{latest.current={project,urls,frame,playing};},[project,urls,frame,playing]);
  useEffect(()=>{
