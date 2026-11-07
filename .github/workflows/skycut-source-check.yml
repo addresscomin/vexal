@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: skycut-workspace/sources/openscene/package-lock.json
       - name: Install desktop dependencies
         run: npm ci
         working-directory: skycut-workspace/sources/openscene
