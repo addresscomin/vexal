@@ -125,3 +125,41 @@
 .stage{position:relative;isolation:isolate;overflow:hidden;}
 .composition-renderer{position:absolute;inset:0;z-index:1;display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;}
 .import-status{display:block;max-width:100%;margin-top:6px;color:#a7b0bc;font-size:10px;line-height:1.4;}
+
+/* AE-style timeline / graph workspace rebuild */
+.timeline-panel{height:350px;min-height:250px;background:#17191d;border-top:1px solid #363a40}
+.timeline-toolbar{background:#202226;min-height:48px;height:48px;gap:12px}
+.timeline-heading{display:flex;align-items:center;gap:16px;min-width:210px}
+.timeline-title{letter-spacing:1.4px;color:#e5e8ec;font-size:10px}
+.timeline-mode-tabs{display:flex;align-items:center;gap:3px}
+.timeline-mode-tabs button{padding:7px 10px;background:#292d33;color:#9da5af;border:1px solid #3a3f46;border-radius:3px;font-size:9px}
+.timeline-mode-tabs button.active{background:#3b3025;color:#ffc27c;border-color:#906b40}
+.edit-tools{gap:10px}
+.edit-tools button{font-size:13px}
+.track-labels{width:220px;background:#202328}
+.track-label{height:42px;background:#202328;border-color:#343941}
+.track-actions{display:flex;gap:2px}
+.track-actions button{padding:3px 4px;border-radius:2px}
+.track-actions button:hover{background:#3b4149;color:#fff}
+.track-row{height:42px;border-color:#343941}
+.ruler{background:#25292f}
+.tracks-area{background-color:#191c21;background-image:repeating-linear-gradient(90deg,transparent 0,transparent calc(5% - 1px),#ffffff0b 5%)}
+.clip-block{height:32px;top:5px;border-radius:2px;font-size:10px}
+.graph-editor{display:flex;flex:1;min-height:0;background:#191c21;overflow:hidden}
+.graph-sidebar{width:190px;flex:none;background:#22262c;border-right:1px solid #3a3f46;display:flex;flex-direction:column;gap:6px;padding:12px}
+.graph-sidebar>b{font-size:9px;letter-spacing:1.3px;color:#8993a0;margin-bottom:4px}
+.graph-sidebar button{background:#2d3239;color:#b8c1cc;text-align:left;padding:8px 10px;border-radius:3px;font-size:10px}
+.graph-sidebar button.active{background:#493725;color:#ffd09a;outline:1px solid #8b663e}
+.graph-sidebar small{margin-top:auto;color:#7f8a98;font-size:9px}
+.graph-canvas{position:relative;display:flex;flex-direction:column;flex:1;min-width:0;padding:10px 14px 7px}
+.graph-canvas-head{height:25px;display:flex;align-items:center;justify-content:space-between;color:#d8dde5;font-size:10px}
+.graph-canvas-head span{font-size:8px;letter-spacing:1.2px;color:#8d98a7}
+.graph-svg{width:100%;height:calc(100% - 52px);min-height:130px;overflow:visible}
+.graph-grid line{stroke:#ffffff16;stroke-width:1}
+.graph-curve{fill:none;stroke:#e5a45c;stroke-width:3;vector-effect:non-scaling-stroke}
+.graph-key{fill:#f4b66f;stroke:#30251b;stroke-width:2;vector-effect:non-scaling-stroke}
+.graph-playhead{stroke:#f06a83;stroke-width:1.5;stroke-dasharray:4 4}
+.graph-empty{flex:1;display:grid;place-items:center;color:#929daa;font-size:11px;text-align:center}
+.graph-footer{height:24px;display:flex;align-items:center;justify-content:space-between;color:#7f8997;font-size:9px}
+.graph-footer button{background:#30353c;color:#e3e8ef;padding:5px 9px;border-radius:3px;font-size:9px}
+@media(max-width:760px){.timeline-panel{height:230px}.timeline-heading{min-width:0;gap:7px}.timeline-mode-tabs button{padding:5px 6px;font-size:8px}.track-labels{width:110px}.graph-sidebar{width:105px;padding:7px}.graph-sidebar button{padding:6px;font-size:9px}.graph-canvas{padding:6px}}
