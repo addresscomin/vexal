@@ -23,6 +23,7 @@ export function CompositionRenderer({project,urls,frame,playing}:Props){
    const state=latest.current,p=state.project;createSources(state);
    if(canvas.width!==p.width)canvas.width=p.width;if(canvas.height!==p.height)canvas.height=p.height;
    ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#080b11";ctx.fillRect(0,0,canvas.width,canvas.height);
+   const activeVideoIds=new Set<string>();
    for(const track of p.tracks){
     if(!track.visible||track.kind==="audio")continue;
     for(const clip of track.clips){
@@ -44,7 +45,7 @@ export function CompositionRenderer({project,urls,frame,playing}:Props){
      if(asset.type==="image"){const image=images.get(asset.id);if(image?.complete&&image.naturalWidth){source=image;sw=image.naturalWidth;sh=image.naturalHeight;}}
      if(asset.type==="video"){
       const video=videos.get(asset.id);
-      if(video){
+      if(video){activeVideoIds.add(asset.id);
        const target=(clip.sourceInFrame+local*clip.playbackRate)/p.fps;
        if(video.readyState>=2&&Number.isFinite(target)&&Math.abs(video.currentTime-target)>.18){try{video.currentTime=Math.max(0,target);}catch{}}
        if(video.readyState>=2&&video.videoWidth){source=video;sw=video.videoWidth;sh=video.videoHeight;}
@@ -66,6 +67,7 @@ export function CompositionRenderer({project,urls,frame,playing}:Props){
      ctx.restore();
     }
    }
+   videos.forEach((video,id)=>{if(!activeVideoIds.has(id)&&!video.paused)video.pause();});
    raf=requestAnimationFrame(draw);
   };
   draw();
