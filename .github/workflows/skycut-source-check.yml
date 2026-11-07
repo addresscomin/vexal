@@ -1,4 +1,5 @@
 name: SkyCut source validation
+# Validates the desktop, mobile and responsive web editor workspaces.
 
 on:
   push:
