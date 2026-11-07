@@ -7,7 +7,7 @@ SkyCut's rebuild workspace uses pinned upstream repositories and selected copied
 - **LibreCuts** — https://github.com/tharunbirla/LibreCuts — MIT License — Copyright (c) 2024 Tharun Birla. License copy: `vendor/librecuts/LICENSE`. Selected Android editor, model, ViewModel, command, timeline, mask, transition and FFmpeg export files are copied under `vendor/librecuts/`.
 - **OpenScene** — https://github.com/Theorvane/OpenScene — MIT License — Copyright (c) 2026 Theorvane. License copy: `vendor/openscene/LICENSE`. Selected mobile project/timeline, media library and native export modules are copied under `vendor/openscene/`.
 - **FreeCut** — https://github.com/walterlow/freecut — MIT License. License copy: `vendor/freecut/LICENSE`. Selected render/export, keyframe and timeline utility files are copied under `vendor/freecut/`.
-- **OpenCut** — https://github.com/OpenCut-app/OpenCut — MIT License. Pinned as an upstream submodule under `sources/opencut`; no copied vendor source is currently included.
+- **OpenCut** — https://github.com/OpenCut-app/OpenCut — MIT License. License copy: `vendor/opencut/LICENSE`. Selected Rust desktop timeline, web editor route, desktop manifest and FFmpeg setup modules are copied under `vendor/opencut/`; the upstream is also pinned under `sources/opencut`.
 
 ## Compliance notes
 
