@@ -29,4 +29,6 @@
 .keyframe-list{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow:auto}
 .keyframe-list button{display:grid;grid-template-columns:20px 1fr auto;align-items:center;gap:8px;text-align:left;padding:9px 10px;border:1px solid rgba(133,160,190,.16);border-radius:8px;background:#111a26;color:#dce8f5;cursor:pointer}
 .keyframe-list button span{color:#50d6a0}.keyframe-list button small{color:#91a2b8}
-\n/* Layer stack controls */\n.track-label{gap:6px}.track-name{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.track-actions{display:flex;align-items:center;gap:1px}.track-actions button{background:transparent;color:#8191a8;padding:3px 4px;font-size:10px;border-radius:3px}.track-actions button:hover{background:#26384d;color:#e8f4ff}.track-locked{background:#171d28}.track-locked .track-name{color:#7d8ba0}.edit-tools>button:first-child{color:#77caff}\n
+
+/* Layer stack controls */
+.track-label{gap:6px}.track-name{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.track-actions{display:flex;align-items:center;gap:1px}.track-actions button{background:transparent;color:#8191a8;padding:3px 4px;font-size:10px;border-radius:3px}.track-actions button:hover{background:#26384d;color:#e8f4ff}.track-locked{background:#171d28}.track-locked .track-name{color:#7d8ba0}.edit-tools>button:first-child{color:#77caff}
