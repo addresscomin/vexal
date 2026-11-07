@@ -54,3 +54,13 @@ jobs:
       - name: Typecheck mobile editor
         run: npm run typecheck
         working-directory: skycut-workspace/sources/openscene/mobile
+
+  shared-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test shared project and timeline operations
+        run: node --test skycut-workspace/core/*.test.mjs
