@@ -11,7 +11,7 @@ The `sources/` directories are Git submodules pinned to upstream commits. The `v
 | LibreCuts | `vendor/librecuts/` | Android editor activity, project/edit models, ViewModels, trim/mask/transition UI, FFmpeg export engine | MIT |
 | OpenScene | `vendor/openscene/` | Mobile timeline/project state, media library, export composition and native Android/iOS export modules | MIT |
 | FreeCut | `vendor/freecut/` | Browser render core, export entry point, timeline/keyframe utilities and color-grade renderer | MIT |
-| OpenCut | `sources/opencut` | Pinned upstream architecture reference; no source files copied into vendor yet | MIT |
+| OpenCut | `vendor/opencut/` and `sources/opencut` | Rust desktop timeline, web editor route and FFmpeg setup reference | MIT |
 
 The original upstream submodules remain available for inspecting additional modules and their dependency context.
 
