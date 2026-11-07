@@ -1,0 +1,61 @@
+name: Deploy SkyCut preview without touching Vexal site
+
+on:
+  push:
+    branches: [skycut-rebuild]
+    paths:
+      - "skycut-workspace/apps/web/**"
+      - ".github/workflows/skycut-preview-deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: skycut-preview-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-publish-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout SkyCut source
+        uses: actions/checkout@v4
+        with:
+          ref: skycut-rebuild
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        working-directory: skycut-workspace/apps/web
+        run: npm install
+
+      - name: Typecheck
+        working-directory: skycut-workspace/apps/web
+        run: npm run typecheck
+
+      - name: Build
+        working-directory: skycut-workspace/apps/web
+        run: npm run build
+
+      - name: Publish only SkyCut preview folder to main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout -B pages-publish FETCH_HEAD
+          mkdir -p skycut-preview
+          cp -a skycut-workspace/apps/web/dist/. skycut-preview/
+          touch skycut-preview/.nojekyll
+          git add skycut-preview
+          if git diff --cached --quiet; then
+            echo "No preview changes to publish"
+            exit 0
+          fi
+          git commit -m "Deploy SkyCut Studio live preview"
+          git push origin HEAD:main
