@@ -111,3 +111,12 @@
 .project-menu button:hover{background:#493824}
 @media(min-width:1500px){.workspace{grid-template-columns:320px minmax(500px,1fr) 350px}.timeline-panel{height:320px}}
 @media(max-width:760px){.toolstrip{height:50px}.workspace{display:flex}.stage-wrap{padding:5px}.timeline-panel{height:215px}.timeline-title{display:none}.track-labels{width:90px}}
+
+
+/* Composition document controls */
+.composition-select{max-width:220px;min-width:115px;background:#202020;color:#e8e8e8;border:1px solid #494949;border-radius:2px;padding:5px 24px 5px 8px;font-size:10px;outline:none}
+.composition-select:focus{border-color:#d89442}
+.composition-select option{background:#252525;color:#eee}
+.new-comp-button{background:#493824;color:#ffd09a;border:1px solid #76522f;border-radius:2px;padding:5px 8px;font-size:9px}
+.new-comp-button:hover{background:#62472b}
+@media(max-width:760px){.composition-select{max-width:145px;min-width:95px;font-size:9px}.new-comp-button{padding:5px 6px;font-size:8px}}
