@@ -109,7 +109,7 @@ private fun SkyCutApp() {
                             val left = clip.copy(trimEndMs = cut)
                             val right = clip.copy(id = java.util.UUID.randomUUID().toString(), trimStartMs = cut)
                             val index = clips.indexOfFirst { it.id == clip.id }
-                            clips = clips.toMutableList().also { it.removeAt(index); it.add(index, right); it.add(index, left) }
+                            clips = clips.toMutableList().also { it.removeAt(index); it.add(index, left); it.add(index + 1, right) }
                             selectedId = right.id
                             Toast.makeText(context, "Clip split into two timeline clips", Toast.LENGTH_SHORT).show()
                         }
