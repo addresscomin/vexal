@@ -120,3 +120,8 @@
 .new-comp-button{background:#493824;color:#ffd09a;border:1px solid #76522f;border-radius:2px;padding:5px 8px;font-size:9px}
 .new-comp-button:hover{background:#62472b}
 @media(max-width:760px){.composition-select{max-width:145px;min-width:95px;font-size:9px}.new-comp-button{padding:5px 6px;font-size:8px}}
+
+/* Composition renderer: the canvas is the active composition output. */
+.stage{position:relative;isolation:isolate;overflow:hidden;}
+.composition-renderer{position:absolute;inset:0;z-index:1;display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;}
+.import-status{display:block;max-width:100%;margin-top:6px;color:#a7b0bc;font-size:10px;line-height:1.4;}
