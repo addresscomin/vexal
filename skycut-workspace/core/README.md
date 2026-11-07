@@ -1,6 +1,6 @@
 # SkyCut shared timeline core
 
-Platform-neutral project document and deterministic edit operations. This module uses native JavaScript modules so it can be exercised with Node's built-in test runner before platform adapters are connected.
+Platform-neutral project document and deterministic editing operations. Native JavaScript modules keep the core independent of a UI framework and allow it to be tested with Node's built-in runner.
 
 Run tests:
 
@@ -8,4 +8,19 @@ Run tests:
 node --test skycut-workspace/core/*.test.mjs
 ```
 
-Current operations: project validation, split, trim, ripple delete, duplicate, move, track reorder and bounded undo/redo snapshots. This is a foundation module, not yet wired into Android/iOS/desktop/web UI or render adapters.
+## Implemented and tested
+
+- Versioned project creation, validation, JSON serialization and snapshot round-trip.
+- Track add/remove and clip add with identity checks.
+- Split with source-time continuity (including playback rate).
+- Non-destructive trim in/out.
+- Ripple delete on the affected track.
+- Duplicate and move clips.
+- Track reorder.
+- Clip audio volume/mute controls and bounds validation.
+- Timeline snapping to nearby candidate positions.
+- Bounded undo/redo snapshot history.
+
+## Not yet connected
+
+This is the shared domain foundation. It is not yet wired into Android/iOS/desktop/web UI, real media decoding, preview synchronization or render adapters. Those integrations must be implemented and tested before calling the editor release-ready.
