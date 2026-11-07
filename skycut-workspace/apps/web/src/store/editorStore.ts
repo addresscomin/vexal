@@ -22,7 +22,7 @@ interface EditorState extends EditorSnapshot {
   zoom: number; scrollFrame: number; snapping: boolean; ripple: boolean; historyPast: readonly HistoryEntry[]; historyFuture: readonly HistoryEntry[];
   setPlayhead(frame: number): void; selectClip(trackId: string | null, clipId: string | null): void;
   setZoom(zoom: number): void; setScrollFrame(frame: number): void; setSnapping(value: boolean): void; setRipple(value: boolean): void;
-  addTrack(track: Track): void; addAsset(asset: Asset): void; addClip(trackId: string, clip: Clip): void;
+  addTrack(track: Track): void; updateTrack(trackId: string, patch: Partial<Track>): void; moveTrack(trackId: string, direction: -1 | 1): void; addAsset(asset: Asset): void; addClip(trackId: string, clip: Clip): void;
   updateClip(trackId: string, clipId: string, patch: Partial<Clip>): void; splitClip(trackId: string, clipId: string, atFrame: number): void;
   trimClip(trackId: string, clipId: string, startFrame: number, endFrame: number): void;
   moveClip(trackId: string, clipId: string, startFrame: number): void; deleteClip(trackId: string, clipId: string): void;
@@ -63,7 +63,7 @@ export const useEditorStore=create<EditorState>()(subscribeWithSelector((set,get
   selectClip:(trackId,clipId)=>set({selectedTrackId:trackId,selectedClipId:clipId}),
   setZoom:zoom=>set({zoom:clamp(zoom,.05,100)}),setScrollFrame:frame=>set({scrollFrame:Math.max(0,Math.floor(frame))}),
   setSnapping:value=>set({snapping:value}),setRipple:value=>set({ripple:value}),
-  addTrack:track=>set(s=>{if(s.project.tracks.some(t=>t.id===track.id))throw new Error("Duplicate track id");return pushHistory(s,{...s.project,tracks:[...s.project.tracks,track]});}),
+  addTrack:track=>set(s=>{if(s.project.tracks.some(t=>t.id===track.id))throw new Error("Duplicate track id");return pushHistory(s,{...s.project,tracks:[...s.project.tracks,track]});}),\n  updateTrack:(trackId,patch)=>set(s=>{if(!s.project.tracks.some(t=>t.id===trackId))throw new Error("Track not found");const tracks=s.project.tracks.map(t=>t.id===trackId?{...t,...patch}:t);return pushHistory(s,{...s.project,tracks});}),\n  moveTrack:(trackId,direction)=>set(s=>{const from=s.project.tracks.findIndex(t=>t.id===trackId),to=from+direction;if(from<0||to<0||to>=s.project.tracks.length)return s;const tracks=[...s.project.tracks];[tracks[from],tracks[to]]=[tracks[to],tracks[from]];return pushHistory(s,{...s.project,tracks});}),
   addAsset:asset=>set(s=>{if(s.project.assets.some(a=>a.id===asset.id))throw new Error("Duplicate asset id");return pushHistory(s,{...s.project,assets:[...s.project.assets,asset]});}),
   addClip:(trackId,clip)=>set(s=>{const t=s.project.tracks.find(x=>x.id===trackId);if(!t||t.locked)throw new Error("Track unavailable");if(!s.project.assets.some(a=>a.id===clip.assetId))throw new Error("Asset not found");const tracks=s.project.tracks.map(x=>x.id===trackId?{...x,clips:[...x.clips,clip].sort((a,b)=>a.startFrame-b.startFrame)}:x);return pushHistory(s,{...s.project,tracks});}),
   updateClip:(trackId,clipId,patch)=>set(s=>{getClip(s.project,trackId,clipId);const tracks=s.project.tracks.map(t=>t.id===trackId?{...t,clips:t.clips.map(c=>c.id===clipId?{...c,...patch}:c)}:t);return pushHistory(s,{...s.project,tracks});}),
