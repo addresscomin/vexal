@@ -1,0 +1,55 @@
+name: SkyCut source validation
+
+on:
+  push:
+    branches: [skycut-rebuild]
+    paths:
+      - ".gitmodules"
+      - "skycut-workspace/**"
+      - ".github/workflows/skycut-source-check.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - ".gitmodules"
+      - "skycut-workspace/**"
+
+jobs:
+  openscene-desktop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install desktop dependencies
+        run: npm ci
+        working-directory: skycut-workspace/sources/openscene
+      - name: Typecheck and test desktop editor
+        run: |
+          npm run typecheck
+          npm test
+        working-directory: skycut-workspace/sources/openscene
+      - name: Build desktop editor
+        run: npm run build
+        working-directory: skycut-workspace/sources/openscene
+
+  openscene-mobile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: skycut-workspace/sources/openscene/mobile/package-lock.json
+      - name: Install mobile dependencies
+        run: npm ci
+        working-directory: skycut-workspace/sources/openscene/mobile
+      - name: Typecheck mobile editor
+        run: npm run typecheck
+        working-directory: skycut-workspace/sources/openscene/mobile
