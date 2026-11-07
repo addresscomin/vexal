@@ -2,12 +2,18 @@ package studio.zahd.vyro
 
 import android.content.Intent
 import android.net.Uri
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.platform.LocalContext
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -201,19 +207,49 @@ private fun SectionTitle(label: String, subtitle: String) {
 }
 
 @Composable
+private fun VideoPreview(uri: Uri, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val player = remember(uri) {
+        ExoPlayer.Builder(context).build().apply {
+            setMediaItem(MediaItem.fromUri(uri))
+            prepare()
+            playWhenReady = false
+        }
+    }
+    DisposableEffect(player) {
+        onDispose { player.release() }
+    }
+    AndroidView(
+        modifier = modifier,
+        factory = { ctx: Context ->
+            PlayerView(ctx).apply {
+                this.player = player
+                useController = true
+                setShowBuffering(PlayerView.SHOW_BUFFERING_WHEN_PLAYING)
+            }
+        },
+        update = { it.player = player }
+    )
+}
+
+@Composable
 private fun EditorScreen(video: Uri?, onImport: () -> Unit) {
     Page {
         Spacer(Modifier.height(20.dp))
         BrandHeader("Creator workspace", "Studio", "DRAFT")
         Spacer(Modifier.height(18.dp))
         Box(Modifier.fillMaxWidth().weight(1f).clip(RoundedCornerShape(22.dp)).background(Color(0xFF05070D)), contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Icon(Icons.Rounded.Movie, null, tint = Violet, modifier = Modifier.size(45.dp))
-                Spacer(Modifier.height(10.dp))
-                Text(if (video == null) "Import media to begin" else "Clip imported", color = Color.White, fontWeight = FontWeight.Bold)
-                Text(if (video == null) "Your preview canvas will appear here" else "Preview pipeline is being connected", color = Muted, fontSize = 11.sp)
-                Spacer(Modifier.height(12.dp))
-                OutlinedButton(onClick = onImport) { Icon(Icons.Rounded.Add, null); Text(" Add video") }
+            if (video != null) {
+                VideoPreview(video, Modifier.fillMaxSize())
+            } else {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(Icons.Rounded.Movie, null, tint = Violet, modifier = Modifier.size(45.dp))
+                    Spacer(Modifier.height(10.dp))
+                    Text("Import media to begin", color = Color.White, fontWeight = FontWeight.Bold)
+                    Text("Select a video to preview and edit", color = Muted, fontSize = 11.sp)
+                    Spacer(Modifier.height(12.dp))
+                    OutlinedButton(onClick = onImport) { Icon(Icons.Rounded.Add, null); Text(" Add video") }
+                }
             }
         }
         Spacer(Modifier.height(14.dp))
