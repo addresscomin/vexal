@@ -1,44 +1,45 @@
 # SkyCut — Rebuild workspace
 
-This is the new, isolated SkyCut rebuild workspace. The existing Vexal site and the earlier prototype are preserved outside this folder.
+Isolated cross-platform editor rebuild. The existing Vexal website and the earlier prototype remain outside this workspace.
 
-## Source projects pinned for integration
+## Upstream projects pinned
 
-Run `git submodule update --init --recursive` after cloning this repository to fetch the pinned upstream source trees.
+The `sources/` directories are Git submodules pinned to upstream commits. The `vendor/` directories contain selected source files copied for direct integration, with upstream license files retained.
 
-| Source | Role in SkyCut | License |
-|---|---|---|
-| OpenScene | Desktop shell, shared timeline/editor domain, React Native integration patterns | MIT |
-| LibreCuts | Android-native editing and export implementation reference | MIT |
-| FreeCut | Browser multi-track editing, keyframes and WebGPU/WebCodecs reference | MIT |
-| OpenCut | Browser editor architecture and Rust/WASM direction | MIT |
+| Project | Imported source in this workspace | Intended contribution | License |
+|---|---|---|---|
+| LibreCuts | `vendor/librecuts/` | Android editor activity, project/edit models, ViewModels, trim/mask/transition UI, FFmpeg export engine | MIT |
+| OpenScene | `vendor/openscene/` | Mobile timeline/project state, media library, export composition and native Android/iOS export modules | MIT |
+| FreeCut | `vendor/freecut/` | Browser render core, export entry point, timeline/keyframe utilities and color-grade renderer | MIT |
+| OpenCut | `sources/opencut` | Pinned upstream architecture reference; no source files copied into vendor yet | MIT |
 
-Upstream code remains in its own submodule directory with its original copyright and license files. Changes to upstream code should be made as clearly documented patches or maintained forks; do not erase attribution.
+The original upstream submodules remain available for inspecting additional modules and their dependency context.
 
-## Platform plan
+## Platform targets
 
-- **Web:** React/TypeScript editor surface; local-first media and browser rendering where supported.
-- **Desktop:** desktop shell around the shared project/timeline model, with native FFmpeg rendering.
-- **Android:** native media import, preview, timeline controls and Media3-based export.
-- **iOS:** native AVFoundation rendering.
-- **Shared project format:** versioned timeline document with assets, tracks, clip timing, transforms, effects, titles, transitions and audio mix.
+- **Android:** native Kotlin application, media import/preview, editing timeline and device export.
+- **iOS:** native Swift/AVFoundation export with shared project interchange.
+- **Desktop:** desktop editor shell and FFmpeg rendering.
+- **Web:** browser editor and WebCodecs/WebGPU paths where supported.
+- **Shared project document:** versioned assets, tracks, clips, timing, transforms, effects, titles, transitions and audio mix.
 
-## Integration rules
+## Integration requirements
 
-1. A feature is not complete merely because a button or panel exists.
-2. Every edit operation must update the shared project model and support undo/redo.
-3. Preview and export must use equivalent effect/transform semantics.
-4. Unsupported operations must be clearly identified before export; never silently omit layers or audio.
-5. Keep media local by default. No upload or AI-provider call without an explicit user action.
-6. Preserve all third-party notices and satisfy each upstream license when distributing binaries or source.
+1. A control is not a feature until its operation changes the project and can be verified.
+2. Editing operations must support undo/redo and persistent project save/reopen.
+3. Preview and export must agree on clip timing, transforms, effects and audio.
+4. Export must report unsupported effects instead of silently dropping them.
+5. Media stays local unless the user explicitly chooses a cloud/AI feature.
+6. Keep original upstream notices and audit nested dependency/asset licenses before distribution.
 
-## Initial feature integration order
+## Implementation sequence
 
-1. Project/media library, multi-track timeline, clip selection and playback.
-2. Split, trim, ripple delete, duplicate, reorder, snapping, undo/redo and autosave.
-3. Audio tracks, volume/fades, titles/subtitles, transitions and filters.
-4. Composition/export pipeline with progress, cancellation and output validation.
-5. Keyframes, masks, chroma key, tracking, motion graphics and advanced compositing.
-6. Desktop/mobile parity, project interchange and automated regression tests.
+1. Unify project/asset/track/clip schemas and project migration.
+2. Integrate media import, multi-track playback, timeline selection and scrubbing.
+3. Implement trim, split, ripple delete, duplicate, reorder, snapping, undo/redo and autosave.
+4. Integrate audio tracks, waveforms, volume/fades, titles, subtitles, transitions and filters.
+5. Build deterministic composition/export with progress, cancellation and output validation.
+6. Add keyframes, masks, chroma key, tracking, motion graphics and advanced compositing.
+7. Test parity and package Android, iOS, desktop and web builds.
 
-This workspace is a source integration baseline, not a claim that all listed capabilities are already implemented.
+**Status:** source modules are being integrated. This folder is not yet a completed or release-ready editor; each feature and platform must pass its own build and functional tests.
