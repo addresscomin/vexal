@@ -1,12 +1,18 @@
 # Third-party source notices
 
-SkyCut's rebuild workspace pins the following upstream projects as separate Git submodules. Their source files and license notices remain in the respective submodule directories.
+SkyCut's rebuild workspace uses pinned upstream repositories and selected copied source modules. Keep these notices with source distributions and shipped binaries as required by each upstream license.
 
-- OpenScene — https://github.com/Theorvane/OpenScene — MIT License — Copyright (c) 2026 Theorvane.
-- LibreCuts — https://github.com/tharunbirla/LibreCuts — MIT License. See its upstream LICENSE for the current copyright notice.
-- FreeCut — https://github.com/walterlow/freecut — MIT License. See its upstream LICENSE for the current copyright notice.
-- OpenCut — https://github.com/OpenCut-app/OpenCut — MIT License. See its upstream LICENSE for the current copyright notice.
+## MIT-licensed projects
 
-The MIT license requires retaining applicable copyright and permission notices. Each pinned source tree is maintained independently; review all nested dependency and asset licenses before packaging a release.
+- **LibreCuts** — https://github.com/tharunbirla/LibreCuts — MIT License — Copyright (c) 2024 Tharun Birla. License copy: `vendor/librecuts/LICENSE`. Selected Android editor, model, ViewModel, command, timeline, mask, transition and FFmpeg export files are copied under `vendor/librecuts/`.
+- **OpenScene** — https://github.com/Theorvane/OpenScene — MIT License — Copyright (c) 2026 Theorvane. License copy: `vendor/openscene/LICENSE`. Selected mobile project/timeline, media library and native export modules are copied under `vendor/openscene/`.
+- **FreeCut** — https://github.com/walterlow/freecut — MIT License. License copy: `vendor/freecut/LICENSE`. Selected render/export, keyframe and timeline utility files are copied under `vendor/freecut/`.
+- **OpenCut** — https://github.com/OpenCut-app/OpenCut — MIT License. Pinned as an upstream submodule under `sources/opencut`; no copied vendor source is currently included.
 
-GPL-licensed projects such as Drift, Shotcut and Kdenlive are not merged into this MIT source baseline. Their code can only be incorporated into a distributed combined product after choosing and meeting compatible copyleft distribution obligations. Their feature ideas may be implemented independently without copying their code.
+## Compliance notes
+
+The MIT license requires retaining applicable copyright and permission notices in copies or substantial portions of the software. Source projects remain pinned under `sources/` for review of their full dependency and asset notices. Audit all transitive dependencies, fonts, media assets and platform SDK terms before release.
+
+GPL-licensed projects such as Shotcut and Kdenlive are not copied into this MIT source baseline. Their code must not be combined into a distributed product without first choosing and meeting the applicable copyleft obligations. Features may be independently implemented without copying their protected code.
+
+This file is a working attribution index, not legal advice or a substitute for a release-by-release license audit.
