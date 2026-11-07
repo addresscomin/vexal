@@ -100,7 +100,7 @@ private fun PremiumNav(current: Tab, onSelect: (Tab) -> Unit) {
             val tint by animateColorAsState(if (active) Cyan else Muted, label = "navTint")
             val icon = when (item) {
                 Tab.HOME -> Icons.Rounded.GridView
-                Tab.EDIT -> Icons.Rounded.MovieEdit
+                Tab.EDIT -> Icons.Rounded.Movie
                 Tab.FX -> Icons.Rounded.AutoAwesome
                 Tab.PRO -> Icons.Rounded.Diamond
             }
@@ -165,7 +165,7 @@ private fun HomeScreen(hasVideo: Boolean, onImport: () -> Unit, onStudio: () -> 
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             QuickTool("Trim", Icons.Rounded.ContentCut, Modifier.weight(1f), onStudio)
             QuickTool("Green screen", Icons.Rounded.Layers, Modifier.weight(1f), onStudio)
-            QuickTool("Motion", Icons.Rounded.TrackChanges, Modifier.weight(1f), onStudio)
+            QuickTool("Motion", Icons.Rounded.GpsFixed, Modifier.weight(1f), onStudio)
         }
         Spacer(Modifier.height(25.dp))
         SectionTitle("YOUR WORKSPACE", if (hasVideo) "1 item ready" else "Start creating")
